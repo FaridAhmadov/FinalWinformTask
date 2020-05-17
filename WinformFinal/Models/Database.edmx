@@ -1,0 +1,498 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WinFormFinalProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AllOrders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConsumerID" Type="int" />
+          <Property Name="CarmadeID" Type="int" />
+          <Property Name="Carmake" Type="nvarchar" MaxLength="50" />
+          <Property Name="PickedDate" Type="datetime" />
+          <Property Name="FinishDate" Type="datetime" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Made" Type="int" />
+          <Property Name="Make" Type="nvarchar" MaxLength="50" />
+          <Property Name="Engine" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="Year" Type="int" />
+          <Property Name="FuelCons" Type="int" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <EntityType Name="Consumers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdentityNumber" Type="int" />
+          <Property Name="DrivingLicence" Type="int" />
+          <Property Name="Age" Type="int" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdentityNumber" Type="int" />
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
+          <Property Name="Age" Type="int" />
+        </EntityType>
+        <EntityType Name="Mades">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Made" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConsumerID" Type="int" />
+          <Property Name="CarMadeID" Type="int" />
+          <Property Name="CarId" Type="int" />
+          <Property Name="CarMake" Type="nvarchar" MaxLength="50" />
+          <Property Name="PickedDate" Type="datetime" />
+          <Property Name="FinishDate" Type="datetime" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <Association Name="FK_AllOrders_Consumers">
+          <End Role="Consumers" Type="Self.Consumers" Multiplicity="0..1" />
+          <End Role="AllOrders" Type="Self.AllOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consumers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AllOrders">
+              <PropertyRef Name="ConsumerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AllOrders_Mades">
+          <End Role="Mades" Type="Self.Mades" Multiplicity="0..1" />
+          <End Role="AllOrders" Type="Self.AllOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mades">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AllOrders">
+              <PropertyRef Name="CarmadeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cars_Mades1">
+          <End Role="Mades" Type="Self.Mades" Multiplicity="0..1" />
+          <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mades">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cars">
+              <PropertyRef Name="Made" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Cars">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Consumers">
+          <End Role="Consumers" Type="Self.Consumers" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consumers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ConsumerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Mades">
+          <End Role="Mades" Type="Self.Mades" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mades">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CarMadeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WinFormFinalProjectModelStoreContainer">
+          <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AllOrders" EntityType="Self.AllOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Consumers" EntityType="Self.Consumers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mades" EntityType="Self.Mades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AllOrders_Consumers" Association="Self.FK_AllOrders_Consumers">
+            <End Role="Consumers" EntitySet="Consumers" />
+            <End Role="AllOrders" EntitySet="AllOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AllOrders_Mades" Association="Self.FK_AllOrders_Mades">
+            <End Role="Mades" EntitySet="Mades" />
+            <End Role="AllOrders" EntitySet="AllOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cars_Mades1" Association="Self.FK_Cars_Mades1">
+            <End Role="Mades" EntitySet="Mades" />
+            <End Role="Cars" EntitySet="Cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Cars" Association="Self.FK_Orders_Cars">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Consumers" Association="Self.FK_Orders_Consumers">
+            <End Role="Consumers" EntitySet="Consumers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Mades" Association="Self.FK_Orders_Mades">
+            <End Role="Mades" EntitySet="Mades" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WinFormFinalProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Consumers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdentityNumber" Type="Int32" />
+          <Property Name="DrivingLicence" Type="Int32" />
+          <Property Name="Age" Type="Int32" />
+          <NavigationProperty Name="AllOrders" Relationship="WinFormFinalProjectModel.FK_AllOrders_Consumers" FromRole="Consumers" ToRole="AllOrders" />
+          <NavigationProperty Name="Orders" Relationship="WinFormFinalProjectModel.FK_Orders_Consumers" FromRole="Consumers" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdentityNumber" Type="Int32" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Mades">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Made" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AllOrders" Relationship="WinFormFinalProjectModel.FK_AllOrders_Mades" FromRole="Mades" ToRole="AllOrders" />
+          <NavigationProperty Name="Cars" Relationship="WinFormFinalProjectModel.FK_Cars_Mades1" FromRole="Mades" ToRole="Cars" />
+          <NavigationProperty Name="Orders" Relationship="WinFormFinalProjectModel.FK_Orders_Mades" FromRole="Mades" ToRole="Orders" />
+        </EntityType>
+        <EntityContainer Name="WinFormFinalProjectEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admins" />
+          <EntitySet Name="Consumers" EntityType="Self.Consumers" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="Mades" EntityType="Self.Mades" />
+          <EntitySet Name="AllOrders" EntityType="WinFormFinalProjectModel.AllOrders" />
+          <EntitySet Name="Cars" EntityType="WinFormFinalProjectModel.Cars" />
+          <EntitySet Name="Orders" EntityType="WinFormFinalProjectModel.Orders" />
+          <AssociationSet Name="FK_AllOrders_Consumers" Association="WinFormFinalProjectModel.FK_AllOrders_Consumers">
+            <End Role="Consumers" EntitySet="Consumers" />
+            <End Role="AllOrders" EntitySet="AllOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AllOrders_Mades" Association="WinFormFinalProjectModel.FK_AllOrders_Mades">
+            <End Role="Mades" EntitySet="Mades" />
+            <End Role="AllOrders" EntitySet="AllOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cars_Mades1" Association="WinFormFinalProjectModel.FK_Cars_Mades1">
+            <End Role="Mades" EntitySet="Mades" />
+            <End Role="Cars" EntitySet="Cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Cars" Association="WinFormFinalProjectModel.FK_Orders_Cars">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Consumers" Association="WinFormFinalProjectModel.FK_Orders_Consumers">
+            <End Role="Consumers" EntitySet="Consumers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Mades" Association="WinFormFinalProjectModel.FK_Orders_Mades">
+            <End Role="Mades" EntitySet="Mades" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="AllOrders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConsumerID" Type="Int32" />
+          <Property Name="CarmadeID" Type="Int32" />
+          <Property Name="Carmake" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PickedDate" Type="DateTime" Precision="3" />
+          <Property Name="FinishDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Consumers" Relationship="WinFormFinalProjectModel.FK_AllOrders_Consumers" FromRole="AllOrders" ToRole="Consumers" />
+          <NavigationProperty Name="Mades" Relationship="WinFormFinalProjectModel.FK_AllOrders_Mades" FromRole="AllOrders" ToRole="Mades" />
+        </EntityType>
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Made" Type="Int32" />
+          <Property Name="Make" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Engine" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="FuelCons" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Mades" Relationship="WinFormFinalProjectModel.FK_Cars_Mades1" FromRole="Cars" ToRole="Mades" />
+          <NavigationProperty Name="Orders" Relationship="WinFormFinalProjectModel.FK_Orders_Cars" FromRole="Cars" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConsumerID" Type="Int32" />
+          <Property Name="CarMadeID" Type="Int32" />
+          <Property Name="CarId" Type="Int32" />
+          <Property Name="CarMake" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PickedDate" Type="DateTime" Precision="3" />
+          <Property Name="FinishDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Cars" Relationship="WinFormFinalProjectModel.FK_Orders_Cars" FromRole="Orders" ToRole="Cars" />
+          <NavigationProperty Name="Consumers" Relationship="WinFormFinalProjectModel.FK_Orders_Consumers" FromRole="Orders" ToRole="Consumers" />
+          <NavigationProperty Name="Mades" Relationship="WinFormFinalProjectModel.FK_Orders_Mades" FromRole="Orders" ToRole="Mades" />
+        </EntityType>
+        <Association Name="FK_AllOrders_Consumers">
+          <End Type="WinFormFinalProjectModel.Consumers" Role="Consumers" Multiplicity="0..1" />
+          <End Type="WinFormFinalProjectModel.AllOrders" Role="AllOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consumers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AllOrders">
+              <PropertyRef Name="ConsumerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AllOrders_Mades">
+          <End Type="WinFormFinalProjectModel.Mades" Role="Mades" Multiplicity="0..1" />
+          <End Type="WinFormFinalProjectModel.AllOrders" Role="AllOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mades">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AllOrders">
+              <PropertyRef Name="CarmadeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cars_Mades1">
+          <End Type="WinFormFinalProjectModel.Mades" Role="Mades" Multiplicity="0..1" />
+          <End Type="WinFormFinalProjectModel.Cars" Role="Cars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mades">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cars">
+              <PropertyRef Name="Made" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Cars">
+          <End Type="WinFormFinalProjectModel.Cars" Role="Cars" Multiplicity="0..1" />
+          <End Type="WinFormFinalProjectModel.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Consumers">
+          <End Type="WinFormFinalProjectModel.Consumers" Role="Consumers" Multiplicity="0..1" />
+          <End Type="WinFormFinalProjectModel.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consumers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ConsumerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Mades">
+          <End Type="WinFormFinalProjectModel.Mades" Role="Mades" Multiplicity="0..1" />
+          <End Type="WinFormFinalProjectModel.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mades">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CarMadeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WinFormFinalProjectModelStoreContainer" CdmEntityContainer="WinFormFinalProjectEntities2">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="WinFormFinalProjectModel.Admins">
+              <MappingFragment StoreEntitySet="Admins">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Consumers">
+            <EntityTypeMapping TypeName="WinFormFinalProjectModel.Consumers">
+              <MappingFragment StoreEntitySet="Consumers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IdentityNumber" ColumnName="IdentityNumber" />
+                <ScalarProperty Name="DrivingLicence" ColumnName="DrivingLicence" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="WinFormFinalProjectModel.Employees">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IdentityNumber" ColumnName="IdentityNumber" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mades">
+            <EntityTypeMapping TypeName="WinFormFinalProjectModel.Mades">
+              <MappingFragment StoreEntitySet="Mades">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Made" ColumnName="Made" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AllOrders">
+            <EntityTypeMapping TypeName="WinFormFinalProjectModel.AllOrders">
+              <MappingFragment StoreEntitySet="AllOrders">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+                <ScalarProperty Name="PickedDate" ColumnName="PickedDate" />
+                <ScalarProperty Name="Carmake" ColumnName="Carmake" />
+                <ScalarProperty Name="CarmadeID" ColumnName="CarmadeID" />
+                <ScalarProperty Name="ConsumerID" ColumnName="ConsumerID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="WinFormFinalProjectModel.Cars">
+              <MappingFragment StoreEntitySet="Cars">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="FuelCons" ColumnName="FuelCons" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Engine" ColumnName="Engine" />
+                <ScalarProperty Name="Make" ColumnName="Make" />
+                <ScalarProperty Name="Made" ColumnName="Made" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="WinFormFinalProjectModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+                <ScalarProperty Name="PickedDate" ColumnName="PickedDate" />
+                <ScalarProperty Name="CarMake" ColumnName="CarMake" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="CarMadeID" ColumnName="CarMadeID" />
+                <ScalarProperty Name="ConsumerID" ColumnName="ConsumerID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

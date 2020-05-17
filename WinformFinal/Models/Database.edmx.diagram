@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a14881de963743b980b70901b7d10d22" Name="Diagram1" ZoomLevel="99">
+        <EntityTypeShape EntityType="WinFormFinalProjectModel.Admins" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WinFormFinalProjectModel.Consumers" Width="1.5" PointX="3.375" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WinFormFinalProjectModel.Employees" Width="1.5" PointX="7.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WinFormFinalProjectModel.Mades" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="WinFormFinalProjectModel.AllOrders" Width="1.5" PointX="8.625" PointY="4" />
+        <EntityTypeShape EntityType="WinFormFinalProjectModel.Cars" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="WinFormFinalProjectModel.Orders" Width="1.5" PointX="5.625" PointY="4.125" />
+        <AssociationConnector Association="WinFormFinalProjectModel.FK_AllOrders_Consumers" />
+        <AssociationConnector Association="WinFormFinalProjectModel.FK_AllOrders_Mades" />
+        <AssociationConnector Association="WinFormFinalProjectModel.FK_Cars_Mades1" />
+        <AssociationConnector Association="WinFormFinalProjectModel.FK_Orders_Cars" />
+        <AssociationConnector Association="WinFormFinalProjectModel.FK_Orders_Consumers" />
+        <AssociationConnector Association="WinFormFinalProjectModel.FK_Orders_Mades" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

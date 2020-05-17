@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WinFormFinalProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admins">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Consumers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IdentityNumber" Type="Int32" />
+    <Property Name="DrivingLicence" Type="Int32" />
+    <Property Name="Age" Type="Int32" />
+    <NavigationProperty Name="Orders" Relationship="WinFormFinalProjectModel.FK_Orders_Consumers" FromRole="Consumers" ToRole="Orders" />
+    <NavigationProperty Name="AllOrders" Relationship="WinFormFinalProjectModel.FK_AllOrders_Consumers" FromRole="Consumers" ToRole="AllOrders" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IdentityNumber" Type="Int32" />
+    <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Age" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Mades">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Made" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cars" Relationship="WinFormFinalProjectModel.FK_Cars_Mades" FromRole="Mades" ToRole="Cars" />
+    <NavigationProperty Name="Orders" Relationship="WinFormFinalProjectModel.FK_Orders_Mades" FromRole="Mades" ToRole="Orders" />
+    <NavigationProperty Name="AllOrders" Relationship="WinFormFinalProjectModel.FK_AllOrders_Mades" FromRole="Mades" ToRole="AllOrders" />
+  </EntityType>
+  <EntityContainer Name="WinFormFinalProjectEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admins" />
+    <EntitySet Name="Consumers" EntityType="Self.Consumers" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" />
+    <EntitySet Name="Mades" EntityType="Self.Mades" />
+    <EntitySet Name="Cars" EntityType="WinFormFinalProjectModel.Cars" />
+    <AssociationSet Name="FK_Cars_Mades" Association="WinFormFinalProjectModel.FK_Cars_Mades">
+      <End Role="Mades" EntitySet="Mades" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <EntitySet Name="Orders" EntityType="WinFormFinalProjectModel.Orders" />
+    <AssociationSet Name="FK_Orders_Consumers" Association="WinFormFinalProjectModel.FK_Orders_Consumers">
+      <End Role="Consumers" EntitySet="Consumers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Mades" Association="WinFormFinalProjectModel.FK_Orders_Mades">
+      <End Role="Mades" EntitySet="Mades" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <EntitySet Name="AllOrders" EntityType="WinFormFinalProjectModel.AllOrders" />
+    <AssociationSet Name="FK_AllOrders_Consumers" Association="WinFormFinalProjectModel.FK_AllOrders_Consumers">
+      <End Role="Consumers" EntitySet="Consumers" />
+      <End Role="AllOrders" EntitySet="AllOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AllOrders_Mades" Association="WinFormFinalProjectModel.FK_AllOrders_Mades">
+      <End Role="Mades" EntitySet="Mades" />
+      <End Role="AllOrders" EntitySet="AllOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Cars" Association="WinFormFinalProjectModel.FK_Orders_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Cars">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Made" Type="Int32" />
+    <Property Name="Make" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Engine" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Year" Type="Int32" />
+    <Property Name="FuelCons" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Price" Type="Int32" />
+    <NavigationProperty Name="Mades" Relationship="WinFormFinalProjectModel.FK_Cars_Mades" FromRole="Cars" ToRole="Mades" />
+    <NavigationProperty Name="Orders" Relationship="WinFormFinalProjectModel.FK_Orders_Cars" FromRole="Cars" ToRole="Orders" />
+  </EntityType>
+  <Association Name="FK_Cars_Mades">
+    <End Type="WinFormFinalProjectModel.Mades" Role="Mades" Multiplicity="0..1" />
+    <End Type="WinFormFinalProjectModel.Cars" Role="Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mades">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="Made" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ConsumerID" Type="Int32" />
+    <Property Name="CarMadeID" Type="Int32" />
+    <Property Name="CarMake" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PickedDate" Type="DateTime" Precision="3" />
+    <Property Name="FinishDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Int32" />
+    <NavigationProperty Name="Consumers" Relationship="WinFormFinalProjectModel.FK_Orders_Consumers" FromRole="Orders" ToRole="Consumers" />
+    <NavigationProperty Name="Mades" Relationship="WinFormFinalProjectModel.FK_Orders_Mades" FromRole="Orders" ToRole="Mades" />
+    <Property Name="PriceID" Type="Int32" />
+    <NavigationProperty Name="Cars" Relationship="WinFormFinalProjectModel.FK_Orders_Cars" FromRole="Orders" ToRole="Cars" />
+  </EntityType>
+  <Association Name="FK_Orders_Consumers">
+    <End Type="WinFormFinalProjectModel.Consumers" Role="Consumers" Multiplicity="0..1" />
+    <End Type="WinFormFinalProjectModel.Orders" Role="Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consumers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ConsumerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Mades">
+    <End Type="WinFormFinalProjectModel.Mades" Role="Mades" Multiplicity="0..1" />
+    <End Type="WinFormFinalProjectModel.Orders" Role="Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mades">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="CarMadeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AllOrders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ConsumerID" Type="Int32" />
+    <Property Name="CarmadeID" Type="Int32" />
+    <Property Name="Carmake" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PickedDate" Type="DateTime" Precision="3" />
+    <Property Name="FinishDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Consumers" Relationship="WinFormFinalProjectModel.FK_AllOrders_Consumers" FromRole="AllOrders" ToRole="Consumers" />
+    <NavigationProperty Name="Mades" Relationship="WinFormFinalProjectModel.FK_AllOrders_Mades" FromRole="AllOrders" ToRole="Mades" />
+    <Property Name="PriceID" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <Association Name="FK_AllOrders_Consumers">
+    <End Type="WinFormFinalProjectModel.Consumers" Role="Consumers" Multiplicity="0..1" />
+    <End Type="WinFormFinalProjectModel.AllOrders" Role="AllOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consumers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AllOrders">
+        <PropertyRef Name="ConsumerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AllOrders_Mades">
+    <End Type="WinFormFinalProjectModel.Mades" Role="Mades" Multiplicity="0..1" />
+    <End Type="WinFormFinalProjectModel.AllOrders" Role="AllOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mades">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AllOrders">
+        <PropertyRef Name="CarmadeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Cars">
+    <End Type="WinFormFinalProjectModel.Cars" Role="Cars" Multiplicity="0..1" />
+    <End Type="WinFormFinalProjectModel.Orders" Role="Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="PriceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

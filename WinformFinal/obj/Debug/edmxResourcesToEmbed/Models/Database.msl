@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WinFormFinalProjectModelStoreContainer" CdmEntityContainer="WinFormFinalProjectEntities2">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="WinFormFinalProjectModel.Admins">
+        <MappingFragment StoreEntitySet="Admins">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Consumers">
+      <EntityTypeMapping TypeName="WinFormFinalProjectModel.Consumers">
+        <MappingFragment StoreEntitySet="Consumers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="IdentityNumber" ColumnName="IdentityNumber" />
+          <ScalarProperty Name="DrivingLicence" ColumnName="DrivingLicence" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="WinFormFinalProjectModel.Employees">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="IdentityNumber" ColumnName="IdentityNumber" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mades">
+      <EntityTypeMapping TypeName="WinFormFinalProjectModel.Mades">
+        <MappingFragment StoreEntitySet="Mades">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Made" ColumnName="Made" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AllOrders">
+      <EntityTypeMapping TypeName="WinFormFinalProjectModel.AllOrders">
+        <MappingFragment StoreEntitySet="AllOrders">
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+          <ScalarProperty Name="PickedDate" ColumnName="PickedDate" />
+          <ScalarProperty Name="Carmake" ColumnName="Carmake" />
+          <ScalarProperty Name="CarmadeID" ColumnName="CarmadeID" />
+          <ScalarProperty Name="ConsumerID" ColumnName="ConsumerID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cars">
+      <EntityTypeMapping TypeName="WinFormFinalProjectModel.Cars">
+        <MappingFragment StoreEntitySet="Cars">
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="FuelCons" ColumnName="FuelCons" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Engine" ColumnName="Engine" />
+          <ScalarProperty Name="Make" ColumnName="Make" />
+          <ScalarProperty Name="Made" ColumnName="Made" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="WinFormFinalProjectModel.Orders">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+          <ScalarProperty Name="PickedDate" ColumnName="PickedDate" />
+          <ScalarProperty Name="CarMake" ColumnName="CarMake" />
+          <ScalarProperty Name="CarId" ColumnName="CarId" />
+          <ScalarProperty Name="CarMadeID" ColumnName="CarMadeID" />
+          <ScalarProperty Name="ConsumerID" ColumnName="ConsumerID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
